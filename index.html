@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Fruit - Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="loading-text">LOADING... <span id="loading-percentage">0%</span></div>
+            <div class="loading-bar-wrapper">
+                <div class="loading-bar-fill" id="loading-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY PEMUTAR VIDEO SKILL -->
+    <div id="skill-video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; z-index: 99999; justify-content: center; align-items: center;">
+        <video id="skill-video" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted>
+            <source id="skill-video-source" src="" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 1. MAP DESA -->
+    <div id="main-ui" style="display: none;">
+        <!-- NPC Gacha di dekat rumah -->
+        <div id="npc-gacha" class="npc-gacha-container" onclick="openGachaModal()">
+            <div class="npc-label text-outline">Gacha Fruit<br>1000 F</div>
+            <img src="gacha npc.png" alt="Gacha NPC">
+        </div>
+
+        <div class="enemies-container" id="village-enemies">
+            <!-- Bandit Kroco -->
+            <div class="map-enemy" onclick="startBattle('bandit')">
+                <div class="map-enemy-name text-outline">Bandit Lvl. 1</div>
+                <img src="musuh.png" alt="Enemy 1">
+            </div>
+            <!-- BOSS DI TENGAH -->
+            <div class="map-enemy boss-enemy" onclick="startBattle('boss')">
+                <div class="map-enemy-name text-outline boss-name">BANDIT BOSS Lvl. 10</div>
+                <img src="bos warewolf.png" alt="Boss">
+            </div>
+            <!-- Bandit Kroco -->
+            <div class="map-enemy" onclick="startBattle('bandit')">
+                <div class="map-enemy-name text-outline">Bandit Lvl. 1</div>
+                <img src="musuh.png" alt="Enemy 2">
+            </div>
+        </div>
+
+        <div class="ui-wrapper">
+            <div class="currency-container">
+                <div class="currency-f text-outline" id="money-f">F 0</div>
+                <div class="currency-gold text-outline" id="money-gold">$ 0</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-btn" id="btn-stats">Stats</div>
+                <div class="nav-btn" id="btn-items">Items</div> 
+                <div class="nav-btn" id="btn-menu">Menu</div>
+                <div class="nav-btn" id="btn-shop">Shop</div>
+            </div>
+            <div class="hud-container">
+                <div class="level-diamond"><div class="level-content"><div class="level-text">Level</div><div class="level-number" id="level-angka">1</div></div></div>
+                <div class="bars-container">
+                    <div class="bar-wrapper energy-bar"><span class="bar-text" id="energy-text">Energy 100/100</span></div>
+                    <div class="xp-bar-wrapper"><div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%;"></div><span class="xp-text" id="xp-text">0 / 100</span></div>
+                    <div class="bar-wrapper health-bar"><span class="bar-text" id="health-text">Health 100/100</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ARENA BATTLE -->
+    <div id="battle-ui" class="battle-container" style="display: none;">
+        <div class="battle-arena">
+            <div class="ui-wrapper-battle">
+                <div class="hud-container">
+                    <div class="level-diamond"><div class="level-content"><div class="level-text">Level</div><div class="level-number" id="battle-level-angka">1</div></div></div>
+                    <div class="bars-container">
+                        <div class="bar-wrapper energy-bar"><span class="bar-text" id="battle-energy-text">Energy 100/100</span></div>
+                        <div class="xp-bar-wrapper"><div class="xp-bar-fill" id="battle-xp-fill" style="width: 0%;"></div><span class="xp-text" id="battle-xp-text">0 / 100</span></div>
+                        <div class="bar-wrapper health-bar"><span class="bar-text" id="battle-health-text">Health 100/100</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU FRUIT BATTLE DINAMIS -->
+            <div id="fruit-menu" class="fruit-menu" style="display: none;">
+                <div class="fruit-title" id="battle-fruit-title">FRUIT</div>
+                <div id="fruit-skills-container"></div>
+            </div>
+
+            <div class="enemy-hud-battle">
+                <div class="enemy-info-box">
+                    <span class="enemy-name-text" id="enemy-name-text">Wild Bandit [Lvl. 1]</span>
+                    <div class="bar-wrapper enemy-hp-bar">
+                        <div class="enemy-hp-fill" id="enemy-hp-fill" style="width: 100%;"></div>
+                        <span class="bar-text" id="enemy-health-text">Health 150/150</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sprite-box player-pos" id="player-sprite"><img src="karakter.png" alt="Player" class="sprite-img player-size"></div>
+            <div class="sprite-box enemy-pos" id="enemy-sprite"><img src="musuh.png" id="enemy-img-element" alt="Enemy" class="sprite-img enemy-size"></div>
+        </div>
+
+        <div class="battle-panel">
+            <div class="action-buttons">
+                <button class="action-btn" id="btn-sword" title="Sword">⚔</button>
+                <button class="action-btn" id="btn-fruit" title="Fruit Skill">🔥</button>
+                <button class="action-btn" id="btn-punch" title="Punch">✊</button>
+                <button class="action-btn" id="btn-regen" title="Charge (+10 Energy)">⚡</button>
+            </div>
+            <div class="portrait-box"><img src="karakter.png" alt="Face" class="portrait-img"></div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODALS -->
+    <!-- ========================================== -->
+
+    <!-- ANIMASI GACHA MODAL -->
+    <div id="gacha-modal" class="modal-overlay" style="display: none;">
+        <div class="gacha-wrapper">
+            <div class="gacha-header text-outline">FRUIT GACHA</div>
+            <div class="gacha-container">
+                <!-- Panah penunjuk di tengah -->
+                <div class="gacha-pointer">▼</div>
+                <!-- Track yang akan bergeser -->
+                <div class="gacha-track" id="gacha-track"></div>
+            </div>
+            <button class="btn-buy" id="btn-spin-gacha" style="margin-top:20px; font-size:24px; padding:10px 40px;" onclick="rollGacha()">SPIN (1000 F)</button>
+            <button class="inv-close text-outline" style="margin-top:10px; width:100px;" onclick="closeGachaModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- INVENTORY MODAL -->
+    <div id="inventory-modal" class="modal-overlay" style="display: none;">
+        <div class="inv-wrapper">
+            <div class="inv-sidebar">
+                <div class="sidebar-tab" onclick="changeTab(this, 'weapon')"><span class="tab-icon">⚔️</span><span class="tab-text text-outline">Weapon</span></div>
+                <div class="sidebar-tab active" onclick="changeTab(this, 'treasure')"><span class="tab-icon">🍎</span><span class="tab-text text-outline">Treasure</span></div>
+                <div class="sidebar-tab" onclick="changeTab(this, 'stash')"><span class="tab-icon">📦</span><span class="tab-text text-outline">Stash</span></div>
+            </div>
+            <div class="inv-main">
+                <div class="inv-header">
+                    <div class="inv-title text-outline">Items</div>
+                    <button class="inv-close text-outline" id="close-inventory">✖</button>
+                </div>
+                <div class="inv-content">
+                    <div class="inv-toolbar">
+                        <select class="inv-dropdown"><option>All Items</option></select>
+                        <div class="inv-search"><span>🔍</span><input type="text" placeholder="Search"></div>
+                    </div>
+                    <div class="inv-grid" id="inventory-grid"></div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS MODAL -->
+    <div id="stats-modal" class="modal-overlay" style="display: none;">
+        <div class="stats-wrapper">
+            <div class="inv-main">
+                <div class="inv-header">
+                    <div class="inv-title text-outline">Stats</div>
+                    <button class="inv-close text-outline" id="close-stats">✖</button>
+                </div>
+                <div class="stats-content">
+                    <div class="stats-points text-outline">Points: <span id="stat-points">0</span></div>
+                    <div class="stats-list">
+                        <div class="stat-row"><div class="stat-info"><span class="stat-name text-outline">Melee</span><span class="stat-lvl text-outline">Lvl. <span id="lvl-melee">1</span></span></div><button class="stat-add-btn text-outline" onclick="addStat('melee')">+</button></div>
+                        <div class="stat-row"><div class="stat-info"><span class="stat-name text-outline">Defense</span><span class="stat-lvl text-outline">Lvl. <span id="lvl-defense">1</span></span></div><button class="stat-add-btn text-outline" onclick="addStat('defense')">+</button></div>
+                        <div class="stat-row"><div class="stat-info"><span class="stat-name text-outline">Sword</span><span class="stat-lvl text-outline">Lvl. <span id="lvl-sword">1</span></span></div><button class="stat-add-btn text-outline" onclick="addStat('sword')">+</button></div>
+                        <div class="stat-row"><div class="stat-info"><span class="stat-name text-outline">Soul Fruit</span><span class="stat-lvl text-outline">Lvl. <span id="lvl-soulfruit">1</span></span></div><button class="stat-add-btn text-outline" onclick="addStat('soulfruit')">+</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOP MODAL -->
+    <div id="shop-modal" class="modal-overlay" style="display: none;">
+        <div class="shop-wrapper">
+            <div class="inv-main" style="width: 700px;">
+                <div class="inv-header">
+                    <div class="inv-title text-outline" style="font-size: 20px;">Permanent Fruit Shop</div>
+                    <button class="inv-close text-outline" id="close-shop">Back</button>
+                </div>
+                <div class="shop-content">
+                    <div class="shop-list" id="shop-list-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

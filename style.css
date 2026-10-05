@@ -1,0 +1,162 @@
+body { margin: 0; padding: 0; overflow: hidden; font-family: 'Arial', sans-serif; background-color: #000; }
+
+/* LOADING SCREEN */
+#loading-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('Gemini_Generated_Image_6ktfl16ktfl16ktf.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 12%; z-index: 9999; transition: opacity 0.8s ease-out; }
+.loading-container { width: 450px; text-align: center; }
+.loading-text { color: #e6e6e6; font-size: 18px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; text-shadow: 2px 2px 5px #000, -1px -1px 2px #000; }
+.loading-bar-wrapper { width: 100%; height: 15px; background-color: #1a1a1a; border: 2px solid #333; border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5); }
+.loading-bar-fill { width: 0%; height: 100%; background: linear-gradient(to right, #4a0072, #b300ff, #00e1ff); box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.4); transition: width 0.1s linear; }
+
+/* MAP DESA */
+#main-ui { width: 100vw; height: 100vh; background-image: url('Gemini_Generated_Image_jlpsksjlpsksjlps (1).jpg'); background-size: cover; background-position: center; position: relative; }
+.enemies-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 80px; z-index: 10; }
+.map-enemy { display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.2s; }
+.map-enemy:hover { transform: scale(1.1); }
+.map-enemy img { width: 120px; height: auto; filter: drop-shadow(0px 8px 4px rgba(0,0,0,0.6)); }
+.map-enemy-name { color: #ff4d4d; font-weight: bold; font-size: 14px; margin-bottom: 5px; background-color: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 10px; border: 1px solid black; }
+
+/* BATTLE ARENA */
+.battle-container { width: 100vw; height: 100vh; display: flex; flex-direction: column; background-color: #000; }
+.battle-arena { flex: 1; background-image: url('background.jpg'); background-size: cover; background-position: center; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
+
+/* HUD UMUM (Dipakai di Desa & Battle) */
+.ui-wrapper, .ui-wrapper-battle { position: absolute; bottom: 25px; left: 25px; display: flex; flex-direction: column; gap: 10px; z-index: 10; }
+.ui-wrapper-battle { top: 25px; bottom: auto; }
+.currency-container { display: flex; flex-direction: column; gap: 2px; font-size: 18px; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 5px; }
+.text-outline { text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000; }
+.currency-f { color: #d100ff; }
+.currency-gold { color: #00ff00; }
+.nav-container { display: grid; grid-template-columns: 110px 110px; gap: 6px; margin-bottom: 5px; }
+.nav-btn { background: linear-gradient(to bottom, #ffcc00 50%, #d49f00 50%); border: 2px solid black; color: white; font-size: 18px; font-weight: bold; text-align: center; padding: 4px 0; cursor: pointer; border-radius: 2px; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.nav-btn:hover { background: linear-gradient(to bottom, #ffe033 50%, #ebaf00 50%); }
+
+.hud-container { display: flex; align-items: center; }
+.level-diamond { width: 75px; height: 75px; background-color: #939fae; border: 3px solid black; transform: rotate(45deg); display: flex; justify-content: center; align-items: center; z-index: 2; }
+.level-content { transform: rotate(-45deg); text-align: center; color: white; }
+.level-text { font-size: 11px; margin-bottom: -3px; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.level-number { font-size: 26px; font-weight: bold; text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000; }
+.bars-container { display: flex; flex-direction: column; gap: 0; margin-left: -20px; z-index: 1; }
+.bar-wrapper { width: 240px; height: 24px; border: 2px solid black; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.bar-text { color: white; font-size: 15px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; z-index: 2; }
+.energy-bar { background-color: #00e1ff; }
+.health-bar { background-color: #00cc00; }
+.xp-bar-wrapper { width: 250px; height: 8px; background-color: #222; border: 2px solid black; border-left: none; margin: 0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.xp-bar-fill { position: absolute; left: 0; top: 0; height: 100%; background-color: #b300ff; transition: width 0.3s ease; }
+.xp-text { color: white; font-size: 8px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; z-index: 2; position: relative; }
+
+/* HUD MUSUH */
+.enemy-hud-battle { position: absolute; top: 25px; right: 25px; z-index: 10; }
+.enemy-info-box { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.enemy-name-text { color: white; font-size: 16px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.enemy-hp-bar { width: 260px; background-color: #333; }
+.enemy-hp-fill { position: absolute; left: 0; top: 0; height: 100%; background-color: #ff3333; transition: width 0.3s ease-out; }
+
+/* BATTLE PANEL & MENU SKILL */
+.battle-panel { height: 140px; background-color: #000; border-top: 4px solid #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+.action-buttons { display: flex; gap: 20px; }
+.action-btn { width: 65px; height: 65px; background-color: #111; border: 3px solid #ffea4d; color: white; font-size: 28px; cursor: pointer; display: flex; justify-content: center; align-items: center; border-radius: 4px; }
+.action-btn:hover { background-color: #333; }
+.portrait-box { width: 110px; height: 110px; border: 3px solid #444; background-color: #222; overflow: hidden; }
+.portrait-img { width: 100%; height: 100%; object-fit: cover; }
+.fruit-menu { position: absolute; top: 120px; left: 25px; width: 260px; background-color: #dbe8ef; border: 3px solid #000; z-index: 20; padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+.fruit-title { font-size: 26px; font-weight: bold; text-align: center; color: black; margin-bottom: 5px; border-bottom: 2px solid #000; padding-bottom: 5px; }
+.fruit-skill-btn { background-color: #a4b9c7; border: 2px solid #7c91a0; border-radius: 2px; display: flex; align-items: center; padding: 10px; cursor: pointer; text-align: left; margin-bottom: 5px; }
+.fruit-skill-btn:hover { background-color: #8da4b3; border: 2px solid #5a6e7a; }
+.skill-key { font-size: 18px; font-weight: bold; margin-right: 10px; color: black; }
+.skill-name { font-size: 16px; font-weight: bold; color: black; }
+
+/* ANIMASI BATTLE */
+.sprite-box { position: absolute; display: flex; justify-content: center; align-items: flex-end; transition: transform 0.15s ease-in-out; }
+.player-pos { bottom: 40px; left: 120px; }
+.player-size { width: 600px; height: auto; }
+.enemy-pos { bottom: 60px; right: 120px; transform: scaleX(-1); }
+.enemy-size { width: 300px; height: auto; }
+.sprite-img { max-width: 100%; max-height: 100%; filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.5)); }
+.player-attack-anim { transform: translateX(50px); } 
+.enemy-attack-anim  { transform: scaleX(-1) translateX(50px); } 
+
+/* MODAL & INVENTORY UMUM */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.inv-wrapper, .shop-wrapper { display: flex; align-items: stretch; height: 75vh; max-height: 550px; }
+.inv-sidebar { background-color: #333333; border: 3px solid black; border-right: none; border-radius: 10px 0 0 10px; padding: 10px 5px; display: flex; flex-direction: column; gap: 10px; margin-top: 45px; height: calc(100% - 45px); }
+.sidebar-tab { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 5px; width: 65px; cursor: pointer; border-radius: 8px; color: white; font-size: 11px; font-weight: bold; border: 2px solid transparent; }
+.sidebar-tab:hover { background-color: #444; }
+.sidebar-tab.active { background: linear-gradient(to bottom, #ffe866, #ffcc00); border: 2px solid black; }
+.tab-icon { font-size: 24px; margin-bottom: 2px; }
+.inv-main { width: 650px; background-color: #1a1a1a; border: 3px solid black; display: flex; flex-direction: column; box-shadow: 10px 10px 15px rgba(0,0,0,0.5); }
+.inv-header { background: linear-gradient(to bottom, #ffea4d, #ffcc00); border-bottom: 3px solid black; display: flex; justify-content: center; align-items: center; padding: 8px; position: relative; }
+.inv-title { font-size: 26px; font-weight: bold; color: white; letter-spacing: 1px; }
+.inv-close { position: absolute; right: 8px; background-color: #ff4d4d; border: 2px solid black; color: white; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 4px; padding: 2px 10px; }
+.inv-close:hover { background-color: #ff1a1a; }
+.inv-content { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+.inv-toolbar { display: flex; justify-content: space-between; align-items: center; }
+.inv-dropdown { background-color: #111; color: white; border: 2px solid #000; padding: 8px 12px; font-size: 14px; border-radius: 4px; font-weight: bold; }
+.inv-search { background-color: #111; border: 2px solid #000; border-radius: 4px; display: flex; align-items: center; padding: 5px 10px; }
+.inv-search input { background: none; border: none; color: white; outline: none; margin-left: 5px; font-size: 14px; width: 150px; }
+
+/* INVENTORY GRID & FRUIT CARDS */
+.inv-grid { flex-grow: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-content: start; }
+.fruit-card { position: relative; height: 120px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; overflow: hidden; }
+.fruit-card:hover { transform: scale(1.05); }
+.fruit-png-img { width: 70px; height: 70px; object-fit: contain; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.6)); margin-bottom: 5px; }
+.fruit-card-name { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: white; background: rgba(0,0,0,0.5); padding: 2px 0; text-shadow: 1px 1px 2px black; }
+.fruit-count { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; font-weight: bold; font-size: 12px; padding: 2px 6px; border-radius: 4px; }
+.eat-btn-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; flex-direction: column; justify-content: center; align-items: center; }
+.fruit-card:hover .eat-btn-overlay { display: flex; }
+.eat-btn { background: #00cc00; border: 2px solid white; color: white; font-weight: bold; padding: 5px 15px; cursor: pointer; border-radius: 4px; }
+.eat-btn:hover { background: #00ff00; color: black; }
+
+/* SHOP LIST */
+.shop-content { padding: 10px; overflow-y: auto; flex-grow: 1; }
+.shop-list { display: flex; flex-direction: column; gap: 8px; }
+.shop-item { display: flex; background-color: #333; border: 2px solid #000; border-radius: 6px; overflow: hidden; align-items: stretch; }
+.shop-item-icon { width: 100px; display: flex; justify-content: center; align-items: center; }
+.shop-item-icon img { width: 70px; height: 70px; object-fit: contain; }
+.shop-item-details { flex-grow: 1; padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+.shop-item-name { color: white; font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+.shop-item-price { color: #00ff00; font-size: 16px; font-weight: bold; }
+.shop-item-buy { width: 150px; display: flex; justify-content: center; align-items: center; background-color: #222; border-left: 2px solid #000; }
+.btn-buy { background: #00cc00; border: 2px solid black; color: white; font-weight: bold; font-size: 16px; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+.btn-buy:hover { background: #00ff00; color: black; }
+.btn-owned { background: #555; color: #ccc; cursor: not-allowed; border: 2px solid black; font-weight: bold; font-size: 16px; padding: 10px 20px; border-radius: 4px; }
+
+/* STATS MODAL */
+.stats-wrapper { width: 450px; }
+.stats-content { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+.stats-points { font-size: 20px; color: #ffcc00; font-weight: bold; }
+.stats-list { display: flex; flex-direction: column; gap: 10px; }
+.stat-row { background-color: #2b2b36; border: 2px solid black; border-radius: 6px; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+.stat-info { display: flex; flex-direction: column; gap: 2px; }
+.stat-name { font-size: 18px; font-weight: bold; color: white; }
+.stat-lvl { font-size: 14px; color: #a89f91; }
+.stat-add-btn { background: linear-gradient(to bottom, #00cc00, #006600); border: 2px solid black; color: white; font-size: 20px; font-weight: bold; width: 38px; height: 38px; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+.stat-add-btn:hover { background: linear-gradient(to bottom, #00ff00, #008800); }
+
+/* RARITY COLORS */
+.rarity-rare { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc) !important; border: 3px solid #00d2ff !important; box-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
+.rarity-legend { background: linear-gradient(135deg, #f8b500, #fceabb) !important; border: 3px solid #ffd700 !important; box-shadow: 0 0 12px rgba(255, 215, 0, 0.7); }
+.rarity-mythical { background: linear-gradient(135deg, #800000, #e52d27, #b31217) !important; border: 3px solid #ff3333 !important; box-shadow: 0 0 15px rgba(255, 51, 51, 0.8); }
+.rarity-secret { background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bf5, #7a00ff, #ff00c8, #ff0000) !important; background-size: 400% 400% !important; animation: rgbRainbow 4s ease infinite !important; border: 3px solid #ffffff !important; box-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
+@keyframes rgbRainbow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+/* ========================================== */
+/* NPC GACHA & BOSS STYLE */
+/* ========================================== */
+.npc-gacha-container { position: absolute; top: 35%; left: 15%; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.2s; z-index: 10; }
+.npc-gacha-container:hover { transform: scale(1.1); }
+.npc-gacha-container img { width: 60px; filter: drop-shadow(0px 8px 4px rgba(0,0,0,0.6)); }
+.npc-label { background: rgba(0,0,0,0.7); color: #ffcc00; font-weight: bold; font-size: 12px; text-align: center; border: 1px solid #fff; border-radius: 6px; padding: 4px 8px; margin-bottom: 5px; }
+
+.boss-enemy img { width: 180px !important; filter: drop-shadow(0px 10px 10px rgba(255, 0, 0, 0.4)) !important; }
+.boss-name { color: #ff3333 !important; font-size: 16px !important; text-shadow: 0 0 5px red, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important; }
+.boss-hp-bar { background-color: #ff0000 !important; box-shadow: 0 0 10px red; }
+
+/* ========================================== */
+/* GACHA ROULETTE MODAL */
+/* ========================================== */
+.gacha-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(20, 20, 20, 0.95); padding: 30px; border: 4px solid #ffcc00; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,1); }
+.gacha-header { font-size: 32px; font-weight: bold; color: white; margin-bottom: 20px; letter-spacing: 2px; }
+.gacha-container { width: 600px; height: 130px; background-color: #111; border: 3px solid #444; position: relative; overflow: hidden; display: flex; align-items: center; border-radius: 4px; }
+.gacha-pointer { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); color: #ff3333; font-size: 32px; z-index: 10; text-shadow: 0 2px 5px black; }
+.gacha-track { display: flex; gap: 10px; position: absolute; left: 0; }
+.gacha-item { width: 100px; height: 100px; border-radius: 6px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; overflow: hidden; border: 2px solid transparent; }
+.gacha-item img { width: 70px; height: 70px; object-fit: contain; filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.7)); }
